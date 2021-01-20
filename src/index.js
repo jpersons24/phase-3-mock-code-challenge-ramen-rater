@@ -33,6 +33,17 @@ function getOneRamen(id) {
    })
 }
 
+function updateRamenObj(id, obj) {
+   fetch(`http://localhost:3000/ramens/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(obj)
+   })
+   // .then(response => response.json())
+   // .then(data => console.log(data))
+
+}
+
 
 
 // RENDER FUNCTIONS
@@ -65,7 +76,7 @@ function displayChosenRamen(ramenObj) {
    `<label for="rating">Rating: </label>
    <input type="text" name="rating" id="rating" value="${ramenObj.rating}" />
    <label for="comment">Comment: </label>
-   <textarea name="comment" id="comment">${ramenObj.comment}</textarea>
+   <textarea name="comment" id="comment" data-id="${ramenObj.id}">${ramenObj.comment}</textarea>
    <input type="submit" value="Update" />`
 }
 
@@ -78,4 +89,19 @@ imgContainer.addEventListener('click', function(event) {
    if (event.target.matches('.ramen-image')) {
       displayRamenDetails(event)
    }
+})
+
+ratingForm.addEventListener('submit', function(event) {
+   event.preventDefault()
+
+   const rating = event.target.rating.value
+   const comment = event.target.comment.value
+   const id = event.target.comment.dataset.id
+
+   const obj = {
+      rating: rating,
+      comment: comment
+   }
+
+   updateRamenObj(id, obj)
 })
