@@ -19,6 +19,7 @@ function getAllRamens() {
       allRamenObjects.forEach(ramenObj => {
          renderRamenObj(ramenObj)
       })
+      displayChosenRamen(allRamenObjects[0])
    })
 }
 
@@ -96,6 +97,6 @@ ratingForm.addEventListener('submit', function(event) {
       rating: rating,
       comment: comment
    }
-   
+
    updateRamenObj(id, obj)
 })
