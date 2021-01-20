@@ -4,6 +4,7 @@
 const imgContainer = document.querySelector('#ramen-menu')
 const ramenDetails = document.querySelector('#ramen-detail')
 const ratingForm = document.querySelector('#ramen-rating')
+const newForm = document.querySelector('#new-ramen')
 
 
 // NETWORK REQUESTS
@@ -36,6 +37,14 @@ function updateRamenObj(id, obj) {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(obj)
+   })
+}
+
+function createRamenObj(newObj) {
+   fetch("http://localhost:3000/ramens", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newObj)
    })
 }
 
@@ -99,4 +108,30 @@ ratingForm.addEventListener('submit', function(event) {
    }
 
    updateRamenObj(id, obj)
+})
+
+newForm.addEventListener('submit', function(event) {
+   event.preventDefault()
+
+   console.log(event.target)
+   // capture input field value
+   const name = event.target.name.value
+   const restaurant = event.target.restaurant.value
+   const image = event.target.image.value
+   const rating = event.target.rating.value
+   const comment = event.target.querySelector('#new-comment').value
+
+   // insert values into new object {}
+   newObj = {
+      name: name,
+      restaurant: restaurant,
+      image: image,
+      rating: rating,
+      comment: comment
+   }
+
+   // send obj in fetch request to update database
+   createRamenObj(newObj)
+
+   event.target.reset()
 })
