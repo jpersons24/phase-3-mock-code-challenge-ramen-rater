@@ -8,9 +8,7 @@ const ratingForm = document.querySelector('#ramen-rating')
 
 // NETWORK REQUESTS
 
-// fetch('http://example.com/movies.json')
-//   .then(response => response.json())
-//   .then(data => console.log(data));
+
 
 getAllRamens()
 
@@ -18,7 +16,6 @@ function getAllRamens() {
    fetch("http://localhost:3000/ramens")
    .then(response => response.json())
    .then(allRamenObjects => {
-      // console.log(allRamenObjects)
       allRamenObjects.forEach(ramenObj => {
          renderRamenObj(ramenObj)
       })
@@ -39,9 +36,6 @@ function updateRamenObj(id, obj) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(obj)
    })
-   // .then(response => response.json())
-   // .then(data => console.log(data))
-
 }
 
 
@@ -102,6 +96,6 @@ ratingForm.addEventListener('submit', function(event) {
       rating: rating,
       comment: comment
    }
-
+   
    updateRamenObj(id, obj)
 })
